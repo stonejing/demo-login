@@ -1,0 +1,21 @@
+{
+  "name": "electron-auth-tester",
+  "version": "1.0.0",
+  "description": "Electron app to test Go auth API",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron . --enable-logging --no-sandbox",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^28.0.0"
+  },
+  "dependencies": {
+    "node-fetch": "^3.3.2",
+    "qrcode": "^1.5.4",
+    "uuid": "^11.1.0"
+  }
+}

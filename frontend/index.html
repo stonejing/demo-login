@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Auth Tester</title>
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:;">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>认证测试应用</h1>
+        <p>设备 ID: <code id="deviceIdDisplay"></code></p>
+
+        <div class="section">
+            <h2>用户注册</h2>
+            <input type="text" id="regUsername" placeholder="用户名">
+            <input type="email" id="regEmail" placeholder="邮箱">
+            <input type="password" id="regPassword" placeholder="密码">
+            <button id="btnRegister">注册</button>
+        </div>
+
+        <div class="section">
+            <h2>用户登录</h2>
+            <input type="text" id="loginUsername" placeholder="用户名">
+            <input type="password" id="loginPassword" placeholder="密码">
+            <div>
+                <input type="checkbox" id="loginRememberDevice" checked>
+                <label for="loginRememberDevice">在此设备上记住我 (如果未启用2FA)</label>
+            </div>
+            <button id="btnLogin">登录</button>
+        </div>
+
+        <div class="section" id="totpLoginSection" style="display:none;">
+            <h2>TOTP 登录验证</h2>
+            <p>用户ID: <span id="totpLoginUserId"></span></p>
+            <p>设备ID (用于记住): <span id="totpLoginDeviceId"></span></p>
+            <input type="text" id="loginTotpCode" placeholder="TOTP 验证码 (6位)" autocomplete="off">
+            <div>
+                <input type="checkbox" id="totpRememberDevice" checked>
+                <label for="totpRememberDevice">在此设备上记住我 (跳过下次2FA)</label>
+            </div>
+            <button id="btnLoginVerifyTotp">验证 TOTP 并登录</button>
+        </div>
+
+        <div class="section">
+            <h2>操作 (需要登录)</h2>
+            <button id="btnGetMe" disabled>获取用户信息 (/me)</button>
+            <button id="btnRefreshToken" disabled>刷新访问令牌</button>
+            <button id="btnLogout" disabled>登出</button>
+        </div>
+
+        <div class="section" id="totpSetupSection" style="display:none;">
+            <h2>2FA (TOTP) 设置</h2>
+            <button id="btnSetupTotp">开始 TOTP 设置</button>
+            <div id="qrCodeContainer" style="display:none;">
+                <p>请使用您的 Authenticator 应用扫描以下二维码:</p>
+                <img id="qrCodeImage" src="" alt="QR Code">
+                <p>或者手动输入密钥: <strong id="manualSecret"></strong></p>
+                <input type="text" id="setupTotpCode" placeholder="输入 TOTP 验证码 (6位)" autocomplete="off">
+                <button id="btnVerifySetupTotp">验证并启用 TOTP</button>
+            </div>
+             <button id="btnDisableTotp" style="display:none;">禁用 TOTP</button>
+        </div>
+        
+        <div class="section" id="trustedDevicesSection" style="display:none;">
+            <h2>受信任的设备</h2>
+            <button id="btnListTrustedDevices">刷新设备列表</button>
+            <ul id="trustedDeviceList"></ul>
+        </div>
+
+
+        <div class="section">
+            <h2>令牌信息</h2>
+            <p><strong>Access Token:</strong> <span id="accessTokenDisplay">-</span></p>
+            <p><strong>Refresh Token:</strong> <span id="refreshTokenDisplay">-</span></p>
+        </div>
+
+        <div class="section">
+            <h2>日志/状态</h2>
+            <pre id="statusLog"></pre>
+        </div>
+    </div>
+
+    <script src="renderer.js"></script>
+</body>
+</html>
+*/

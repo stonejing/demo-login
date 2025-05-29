@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:17 # 您可以选择适合您的 PostgreSQL 版本
+    container_name: auth_postgres
+    environment:
+      POSTGRES_USER: user # 数据库用户名
+      POSTGRES_PASSWORD: password # 数据库密码
+      POSTGRES_DB: authdb # 数据库名称
+    ports:
+      - "5432:5432" # 将容器的 5432 端口映射到主机的 5432 端口
+    volumes:
+      - postgres_data:/var/lib/postgresql/data # 持久化数据卷
+    restart: unless-stopped
+
+  redis:
+    image: redis:8 # 您可以选择适合您的 Redis 版本
+    container_name: auth_redis
+    ports:
+      - "6379:6379" # 将容器的 6379 端口映射到主机的 6379 端口
+    volumes:
+      - redis_data:/data # 持久化数据卷
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+  redis_data:
+
+# 使用方法:
+# 1. 将此内容保存为 docker-compose.yml 文件。
+# 2. 在该文件所在的目录下，打开终端。
+# 3. 运行 `docker-compose up -d` 来在后台启动服务。
+# 4. 您的 Go 应用的环境变量应配置为连接到这些服务：
+#    DATABASE_URL=postgres://user:password@localhost:5432/authdb?sslmode=disable
+#    REDIS_URL=localhost:6379
+# 5. 要停止服务，运行 `docker-compose down`。
+# 6. 要删除数据卷（警告：这将删除所有数据），运行 `docker-compose down -v`。
